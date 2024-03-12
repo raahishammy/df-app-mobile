@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "297872864184",
+    "firebase_url": "https://discfirst-push-notifications.firebaseio.com",
+    "project_id": "discfirst-push-notifications",
+    "storage_bucket": "discfirst-push-notifications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297872864184:android:21b7635ac18f7b3e5ed54d",
+        "android_client_info": {
+          "package_name": "io.ionic.discipleFirst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297872864184-tjgu3gh49oeir5hpi49pdi03q9p0r0b3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjaBsHAVqtNlGVUawl9buYVgB6D4o8aMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297872864184-tjgu3gh49oeir5hpi49pdi03q9p0r0b3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,7 @@
 {
   "name": "df-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
