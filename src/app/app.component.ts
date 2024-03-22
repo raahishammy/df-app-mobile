@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Platform, LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+// import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { FcmService } from "../app/fcm.service";
@@ -71,7 +71,7 @@ export class AppComponent {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
+    // private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public http: HttpClient,
     public Router: Router,
@@ -128,7 +128,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.splashScreen.hide();
       var fontClassValue = localStorage.getItem("fontClass");
       if(fontClassValue == '')
         fontClassValue = 'normal';

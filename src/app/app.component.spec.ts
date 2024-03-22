@@ -4,16 +4,17 @@ import { RouterTestingModule }  from '@angular/router/testing';
 import { Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
 
-import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+// import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 
 describe('AppComponent', () => {
 
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+  // let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+  let statusBarSpy, platformReadySpy, platformSpy;
 
   beforeEach(async () => {
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
+    // splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
     platformReadySpy = Promise.resolve();
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
@@ -23,7 +24,7 @@ describe('AppComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
+        // { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
       ],
       imports: [ RouterTestingModule.withRoutes([])],
@@ -42,7 +43,7 @@ describe('AppComponent', () => {
     expect(platformSpy.ready).toHaveBeenCalled();
     await platformReadySpy;
     expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    // expect(splashScreenSpy.hide).toHaveBeenCalled();
   });
 
   it('should have menu labels', async () => {
