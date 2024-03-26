@@ -1,0 +1,61 @@
+.verse-book-852 .flash-card-front {border-color: #ffffff !important;}
+.verse-book-860 .flash-card-front {border-color: #ffffff !important;}
+.verse-book-669 .flash-card-front {border-color: #ffffff !important;}
+.flash-card-front {border-color: #ffffff;}
+
+
+.verse-book-852 .memory_verse_title:before {background: #ffffff !important;}
+.verse-book-860 .memory_verse_title:before {background: #ffffff !important;}
+.verse-book-669 .memory_verse_title:before {background: #ffffff !important;}
+.memory_verse_title:before {background: #e8c987;}
+
+.flash-card-front {
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.flash-card-back {
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.memory_verse_title:before {
+    position: absolute;
+    content: "";
+    background: #e8c987;
+    height: 3px;
+    width: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /* border: 0; */
+    bottom: 0px;
+}
+.memory_verse_title {
+    font-size: 1.25rem;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.memory_verse_sub_title {
+    font-size: 0.825rem;
+}
+
+ 
+.internal-hero{ position: relative;top: 0;width: 100%;left: 0;}
+.book-title h4{ background: #e8c987;padding: 5px 25px;width: auto;margin: 0 auto;display: table; vertical-align: middle;line-height: 20px;}
+.book-title {position: absolute;bottom: -17px; left:0px; right:0px;}
+.book-title::after{ content: none;}
+.item-line-before:before{ content: none;}
+.swipe-text ion-icon{width: 0.8em;height: 0.8em;margin-left: -7px;}

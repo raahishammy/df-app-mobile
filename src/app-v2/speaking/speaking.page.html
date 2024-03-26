@@ -1,0 +1,299 @@
+<style>.internal-header .toolbar-container{padding-top:15px !important;padding-bottom:15px !important}</style>
+<!-- Back button with a default href -->
+<ion-header  class="internal-header ion-align-items-center">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+	  
+    </ion-buttons>
+	    <ion-title><img class="logo" src="../assets/images/logo.svg"></ion-title>
+		  <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" color="light">
+    
+
+<section  class="text-center internal-hero ion-align-items-center" style='background:url(../assets/images/contact-us-banner.jpg)'>
+    <h3 class="span-underline internal-hero-title"><span>Speaking Request
+</span></h3>
+  </section>
+  
+
+    <div class="px-1 py-1">
+        
+      <h5>SPEAKING REQUEST FOR PASTOR CRAIG</h5>  
+      <p>Thank you for your interest in Pastor Craig’s availability at your upcoming event. It is a privilege that you would allow Craig to serve alongside you in the ministry of encouraging others towards following Jesus’ call to make disciples.
+
+Due to his desire to lead his family and First Colleyville well, Craig is not able to accept all of the invitations he receives. Each request will be evaluated to make sure that his obligations to family and church come first. A few parameters our team has developed to aid in protecting Craig’s role as Lead Pastor of First Colleyville are:</p>
+
+<ul class="custom-list">
+<li>In order to protect his time and obligations at First Colleyville, Craig seldom speaks on Sundays.</li>
+<li>In order to maximize his time away from home and the church, Craig prioritizes events that fit within discipleFIRST’s process of Forums and Cohorts.</li>
+<li>If the event requires multiple days we would love to explore as many opportunities for Craig to encourage as many leaders as possible while he is traveling.</li>
+<li>It is the position of the leaders of discipleFIRST that Craig will not travel alone. So, either his wife, Liz, or a member of the discipleFIRST team will accompany him.</li>
+<li>For all speaking engagements discipleFIRST requires that Craig’s Travel &amp; Incidental expenses (also Liz’s if she accompanies him) be reimbursed.</li>
+<li>Honorariums for each event would be determined by the invitee. However, other costs may be required for printed items and other expenses, but these would be clearly communicated by discipleFIRST before the event.</li>
+</ul>
+        
+    <p><strong>If you would like to submit a request, please complete the form below. It will be reviewed by the discipleFIRST team, and we will contact you as soon as a decision is made. Thank you!</strong></p>   
+        
+        
+     <!---p class="text-center">Please send us a message using the form below and our staff will contact you shortly. Thank you!</p-->    
+
+    <!-- <iframe class="ccb-form grow-cohort-form" src="https://disciplefirst.ccbchurch.com/goto/forms/46/responses/new" style="height:600px;width:100%"></iframe> -->
+      <ion-grid>
+        <form (ngSubmit)="speakingRequest()">
+          <ion-row>
+            <ion-col>
+              <ion-label>First Name*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.firstName" name="firstName" type="text" placeholder="First Name*" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>Last Name*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.lastName" name="lastName" type="text" placeholder="Last Name*" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label>Email*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.email" name="email" type="email" placeholder="Email*" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>Mobile Phone*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.mobilePhone" name="mobilePhone" type="text" placeholder="Mobile Phone*" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label>Street*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.street" name="street" type="text" placeholder="Street*" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label>City*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.city" name="city" type="text" placeholder="City*" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>State*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.state" name="state" type="text" placeholder="State*" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>Postal Code*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.postalCode" name="postalCode" type="tel" (keypress)="numberOnlyValidation($event)" placeholder="Postal Code*" maxlength="6" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label>Type of Events*</ion-label>
+              <ion-list *ngIf="eventTypes.length > 0">
+                <ion-item *ngFor="let evDetails of eventTypes">
+                  <!-- <ion-checkbox [(ngModel)]="eventTypes.discipleFIRSTeventType" name="discipleFIRSTeventType" value="discipleFIRST Forum"></ion-checkbox> -->
+                  <ion-checkbox (ionChange)="selectEvent(evDetails)" [(ngModel)]="evDetails.checked" name="evDetails.eventName"></ion-checkbox>
+                  <ion-label>&nbsp;{{evDetails?.eventLabel || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>
+              <ion-label>Start Date*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.startDate" name="startDate" type="date" placeholder="Start Date*" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>End Name*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.endDate" name="endDate" type="date" placeholder="End Date*" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Location of Event*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.eventLocation" name="eventLocation" type="text" placeholder="Location of Event*" required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-label>Purpose of the Event*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.eventPurpose" name="eventPurpose" type="text" placeholder="Purpose of the Event*" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Prospective Audience:*</ion-label>
+              <ion-list *ngIf="audienceType.length > 0">
+                <ion-item *ngFor="let audience of audienceType">
+                  <ion-checkbox (ionChange)="selectAudience(audience)" [(ngModel)]="audience.checked" name="audience.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{audience?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Event Dress Code*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.dressCode" name="dressCode" type="text" placeholder="Event Dress Code*"
+                  required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Additional Requests or Requirements*</ion-label>
+              <ion-list *ngIf="requirementTypes.length > 0">
+                <ion-item *ngFor="let requirement of requirementTypes">
+                  <ion-checkbox (ionChange)="selectRequirement(requirement)" [(ngModel)]="requirement.checked" name="requirement.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{requirement?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Overall Schedule of Event*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.eventSchedule" name="eventSchedule" type="text" placeholder="Type your answer" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Would You Be Interested in Offering a Grow Series Cohort As A Next Step For Attendees?*</ion-label>
+              <ion-list *ngIf="interestOptions.length > 0">
+                <ion-item *ngFor="let option of interestOptions">
+                  <ion-checkbox (ionChange)="selectOffering(option)" [(ngModel)]="option.checked"
+                    name="option.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{option?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>
+              <ion-label>Other requirements for our team*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.requirements" name="requirements" type="text" placeholder="Type your answer" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>How many times will Craig be expected to speak?*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.craigSpeakTime" name="craigSpeakTime" type="text" placeholder="Type your answer" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Is there a particular topic or passage of Scripture requested for any of the sessions?*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.eventTopic" name="eventTopic" type="text" placeholder="Type your answer" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>How much time is allowed for each session?*</ion-label>
+              <ion-item>
+                <ion-input [(ngModel)]="userinfo.eventTime" name="eventTime" type="text" placeholder="Type your answer" required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Would a Screen, Projector or Large T.V. Be Available To Display a Powerpoint?*</ion-label>
+              <ion-list *ngIf="screenOptions.length > 0">
+                <ion-item *ngFor="let option of screenOptions">
+                  <ion-checkbox (ionChange)="selectScreening(option)" [(ngModel)]="option.checked" name="option.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{option?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Would a Large Dry Erase Board Be Available?*</ion-label>
+              <ion-list *ngIf="boardOptions.length > 0">
+                <ion-item *ngFor="let option of boardOptions">
+                  <ion-checkbox (ionChange)="selectBoard(option)" [(ngModel)]="option.checked" name="option.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{option?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Would a Music Stand or Podium Be Available?*</ion-label>
+              <ion-list *ngIf="standOptions.length > 0">
+                <ion-item *ngFor="let option of standOptions">
+                  <ion-checkbox (ionChange)="selectStand(option)" [(ngModel)]="option.checked" name="option.inputName">
+                  </ion-checkbox>
+                  <ion-label>&nbsp;{{option?.label || 'N/A'}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button size="large" type="submit" expand="block">Submit</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+
+</ion-content>

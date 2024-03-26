@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule }  from '@angular/router/testing';
 import { Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
@@ -7,19 +7,19 @@ import { AppComponent } from './app.component';
 // import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 
+
 describe('AppComponent', () => {
 
   // let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
   let statusBarSpy, platformReadySpy, platformSpy;
 
-  beforeEach(async () => {
+  beforeEach(async(() => {
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
     // splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
     platformReadySpy = Promise.resolve();
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
-    
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
@@ -29,15 +29,14 @@ describe('AppComponent', () => {
       ],
       imports: [ RouterTestingModule.withRoutes([])],
     }).compileComponents();
-  });
+  }));
 
-  it('should create the app', () => {
+  it('should create the app', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  // Added Manually
   it('should initialize the app', async () => {
     TestBed.createComponent(AppComponent);
     expect(platformSpy.ready).toHaveBeenCalled();
@@ -65,5 +64,5 @@ describe('AppComponent', () => {
     expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/folder/Inbox');
     expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/folder/Outbox');
   });
-  
+
 });

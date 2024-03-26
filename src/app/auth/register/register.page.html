@@ -12,38 +12,32 @@
 </ion-header>
 
 <ion-content color="light" [fullscreen]="true">
-    
-    
-    <ion-grid style="height:100%">
-        <ion-row color="primary" class="ion-align-items-center" style="height:100%">
-            
-          <ion-col>
-    
- <ion-card class="mb-0 login-card">
-    <form #form="ngForm" (ngSubmit)="register(form)">        
-      
-            <div class="text-center span-underline mb-2"><h3 color="dark"><span>Register</span></h3></div>            
-           
-              <ion-item>                  
-                <ion-input name="username" type="text" placeholder="Enter username" ngModel required></ion-input>
-              </ion-item>
+  <ion-grid style="height:100%">
+    <ion-row color="primary" class="ion-align-items-center" style="height:100%">            
+      <ion-col>
+        <ion-card class="mb-0 login-card">
+          <p style="padding: 10px;">Use the form below to register for a free account. <a (click)="openWithInAppBrowser('https://disciplefirst.com/store/disciplefirst-hub-monthly/')">Click here</a> to sign up for the hub, to have access to all the resources.</p>
+          <form #form="ngForm" (ngSubmit)="register(form)">
+            <div class="text-center span-underline mb-2"><h3 color="dark"><span>REGISTER</span></h3></div>            
+            <ion-item>                  
+              <ion-input name="username" type="text" placeholder="Enter Username" ngModel required></ion-input>
+            </ion-item>
 
-              <ion-item>                  
-                <ion-input name="email" type="email" placeholder="Email" ngModel required></ion-input>
-              </ion-item>
-              
-              <ion-item>
-                <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
-              </ion-item>
-          
-              <div class="ion-padding">
-                <ion-button type="submit" [disabled]="form.invalid" expand="block" color="secondary">Submit</ion-button>
-              </div>        
-      
-        </form>
-      </ion-card>
-    </ion-col>          
-  </ion-row>        
-</ion-grid>
-  
+            <ion-item>                  
+              <ion-input name="email" type="email" placeholder="Email" ngModel required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+            </ion-item>
+        
+            <div class="ion-padding">
+              <ion-button type="submit" [disabled]="form.invalid" expand="block" color="secondary">Submit</ion-button>
+            </div>
+          </form>
+          <p style="padding: 10px;">If you are an existing user, please <a [routerLink]="['/login']">Click here</a> to login.</p>
+        </ion-card>
+      </ion-col>          
+    </ion-row>        
+  </ion-grid>
 </ion-content>

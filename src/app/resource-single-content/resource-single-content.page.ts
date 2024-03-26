@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ToastController, LoadingController } from '@ionic/angular';
 
-import { Network } from "@awesome-cordova-plugins/network/ngx";
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: "app-resource-single-content",
@@ -17,10 +17,11 @@ export class ResourceSingleContentPage implements OnInit {
   week: any;
   day: any;
   type: any;
-  url: string = "https://disciplefirst.com/";
+  url: string = "https://disciplefirst.herokuapp.com/https://disciplefirst.com/";
   loading: any;
   weekData: any;
   dayData: any;
+  downloaded_flag: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,44 +39,70 @@ export class ResourceSingleContentPage implements OnInit {
 
     console.log(data);
     // console.log(data.select_day);
+    let localStoredBooks = localStorage.getItem("downloadedBooks");
+    let downloadedBooks = (localStoredBooks!== null ) ? JSON.parse(localStoredBooks) : null;
+    if (downloadedBooks){
+      for (var i = 0; i < downloadedBooks.length; i++) {
+        if (downloadedBooks[i].ID == this.id) {
+          this.downloaded_flag = true;
+
+          this.data = downloadedBooks[i];
+          break;
+        }
+      }
+      /*this.data.book_meta.forEach((element) => {
+        // console.log("Loop Element ", element);
+        if (
+          element.select_week.value == this.weekData &&
+          element.select_day.value == this.dayData
+        ) {
+            this.data.request_content = element.book_content;
+        }
+      });*/
+    }
 
     // console.log("Network Type ", this.network.type);
     if(this.network.type == "none"){
-      let localStoredBooks = localStorage.getItem("downloadedBooks");
-      let downloadedBooks = (localStoredBooks!== null ) ? JSON.parse(localStoredBooks) : null;
       if (downloadedBooks) {
-        for (var i = 0; i < downloadedBooks.length; i++) {
-          if (downloadedBooks[i].ID == this.id) {
-            this.data = downloadedBooks[i];
-            break;
-          }
+        // for (var i = 0; i < downloadedBooks.length; i++) {
+        //   if (downloadedBooks[i].ID == this.id) {
+        //     this.data = downloadedBooks[i];
+        //     break;
+        //   }
+        // }
+        // // console.log("Local Book Data ", this.data);
+        // this.data.book_meta.forEach((element) => {
+        //   // console.log("Loop Element ", element);
+        //   if (
+        //     element.select_week.value == this.weekData &&
+        //     element.select_day.value == this.dayData
+        //   ) {
+        //       this.data.request_content = element.book_content;
+        //   }
+        // });
+        if(this.downloaded_flag == true){
+          // Variables are already defined
         }
-        // console.log("Local Book Data ", this.data);
-        this.data.book_meta.forEach((element) => {
-          // console.log("Loop Element ", element);
-          if (
-            element.select_week.value == this.weekData &&
-            element.select_day.value == this.dayData
-          ) {
-              this.data.request_content = element.book_content;
-          }
-        });
       }
     }else{
-      this.presentLoading();
-      
-      this.getBookContent(data).subscribe((res) => {
-        this.data = res;
-        console.log("Result ", this.data); 
-        this.loading.dismiss();
-      });
+      if(this.downloaded_flag == true){
+        // Variables are already defined
+      }else{
+        this.presentLoading();
+        
+        this.getBookContent(data).subscribe((res) => {
+          this.data = res;
+          console.log("Result ", this.data); 
+          this.loading.dismiss();
+        });
+      }
     }
   }
 
   async presentLoading() {
     this.loading = await this.LoadingController.create({
       //content: '',
-      duration: 5000,
+      // duration: 5000,
     });
     return await this.loading.present();
   }
@@ -83,7 +110,7 @@ export class ResourceSingleContentPage implements OnInit {
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       "content-type": "application/x-www-form-urlencoded",
     }),
   };

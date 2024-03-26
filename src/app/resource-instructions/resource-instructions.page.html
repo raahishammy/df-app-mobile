@@ -1,0 +1,30 @@
+<style>.internal-header .toolbar-container{padding-top:15px !important;padding-bottom:15px !important}</style>
+
+<!-- Back button with a default href -->
+<ion-header  class="internal-header ion-align-items-center">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+	  
+    </ion-buttons>
+	    <ion-title><img class="logo" src="../assets/images/logo.svg"></ion-title>
+		  <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<!-- <section class="text-center internal-hero" style='background:url(../assets/images/digital-resources.jpg);'>
+		<h3 class="span-underline internal-hero-title"><span>How to Unlock?</span></h3>
+	</section> -->
+  
+  <ion-toolbar>			
+    <div class="ion-text-start px-half">
+      <h5>How to Unlock?</h5>
+      <p>To unlock digital access, scan the barcode on the bottom corner of the back cover of your book.</p>
+    </div>
+  </ion-toolbar>
+
+  <img src="../assets/images/instructions.jpg" >
+</ion-content>

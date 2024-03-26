@@ -7,7 +7,6 @@ const routes: Routes = [
     redirectTo: '/home',
     pathMatch: 'full'
   },
-  { path: 'folder/:id', loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)  },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
   { path: 'about/:id', loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)  },  
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)  },
@@ -62,7 +61,33 @@ const routes: Routes = [
   {
     path: 'appendices',
     loadChildren: () => import('./appendices/appendices.module').then( m => m.AppendicesPageModule)
-  }
+  },
+  {
+    path: 'memories',
+    loadChildren: () => import('./memories/memories.module').then( m => m.MemoriesPageModule)
+  },
+  {
+    path: 'memory-resources',
+    loadChildren: () => import('./memory-resources/memory-resources.module').then( m => m.MemoryResourcesPageModule)
+  },
+  {
+    path: 'leader-resources',
+    loadChildren: () => import('./leader-resources/leader-resources.module').then( m => m.LeaderResourcesPageModule)
+  },
+  {
+    path: 'introduction-resources',
+    loadChildren: () => import('./introduction-resources/introduction-resources.module').then( m => m.IntroductionResourcesPageModule)
+  },
+  {
+    path: 'appendicies-resources',
+    loadChildren: () => import('./appendicies-resources/appendicies-resources.module').then( m => m.AppendiciesResourcesPageModule)
+  },
+  {
+    path: 'resource-instructions',
+    loadChildren: () => import('./resource-instructions/resource-instructions.module').then( m => m.ResourceInstructionsPageModule)
+  },
+
+  
 ];
 
 @NgModule({
@@ -71,4 +96,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

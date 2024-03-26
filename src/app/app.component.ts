@@ -1,35 +1,35 @@
-import { Component } from '@angular/core';
-import { Platform, LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Platform, LoadingController, ToastController, NavController, ActionSheetController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { FcmService } from "../app/fcm.service";
+// import { FcmService } from "../app/fcm.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
-  options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
-    hidden : 'no', //Or  'yes'
-    clearcache : 'yes',
-    clearsessioncache : 'yes',
-    zoom : 'yes',//Android only ,shows browser zoom controls 
-    hardwareback : 'yes',
-    mediaPlaybackRequiresUserAction : 'no',
-    shouldPauseOnSuspend : 'no', //Android only 
-    closebuttoncaption : 'Close', //iOS only
-    disallowoverscroll : 'no', //iOS only 
-    toolbar : 'yes', //iOS only 
-    enableViewportScale : 'no', //iOS only 
-    allowInlineMediaPlayback : 'no',//iOS only 
-    presentationstyle : 'pagesheet',//iOS only 
-    fullscreen : 'yes',//Windows only    
-  };
+export class AppComponent implements OnInit {
+    options : InAppBrowserOptions = {
+        location : 'yes',//Or 'no' 
+        hidden : 'no', //Or  'yes'
+        clearcache : 'yes',
+        clearsessioncache : 'yes',
+        zoom : 'yes',//Android only ,shows browser zoom controls 
+        hardwareback : 'yes',
+        mediaPlaybackRequiresUserAction : 'no',
+        shouldPauseOnSuspend : 'no', //Android only 
+        closebuttoncaption : 'Close', //iOS only
+        disallowoverscroll : 'no', //iOS only 
+        toolbar : 'yes', //iOS only 
+        enableViewportScale : 'no', //iOS only 
+        allowInlineMediaPlayback : 'no',//iOS only 
+        presentationstyle : 'pagesheet',//iOS only 
+        fullscreen : 'yes',//Windows only    
+    };
   userDataLocal =  localStorage.getItem('userData');
   userData =  null;
   memory_verses: any;
@@ -65,7 +65,7 @@ export class AppComponent {
   ];
   //public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   loading:any;
-  isAbout: number;
+  isAbout:any;
 
   fontClass: any = '';
 
@@ -77,19 +77,21 @@ export class AppComponent {
     public Router: Router,
     public LoadingController: LoadingController,
     public theInAppBrowser: InAppBrowser,
-    private FcmService: FcmService,
+    // private FcmService: FcmService,
     public toastCtrl: ToastController,
+    public navCtrl: NavController,
     public actionSheetController: ActionSheetController
   ) {
+    
     platform.ready().then(() => {
       this.userData = (this.userDataLocal!== null ) ? JSON.parse(this.userDataLocal) : null;
       this.initializeApp();
-      this.notificationsSetting();
-      this.notificationSetup();
+      // this.notificationsSetting();
+      // this.notificationSetup();
     });
   }
 
-  private notificationsSetting(){
+  /*private notificationsSetting(){
     console.log("firstRun", localStorage.getItem("firstRun"));
     if(localStorage.getItem("firstRun") == null){
       
@@ -109,70 +111,64 @@ export class AppComponent {
 
       localStorage.setItem("firstRun", "1");
     }
-  }
-  private notificationSetup() {
+  }*/
+  /*private notificationSetup() {
     this.FcmService.getToken();
     this.FcmService.onNotifications().subscribe(
       (data) => {
         if(data.wasTapped){
           console.log("Recived in Background");
         }else{
-          if(data['body']){
-            this.presentToast(data['body']);
-            console.log("Recived in Frontend", data);
-          }
+          this.presentToast(data.body);
+          console.log("Recived in Frontend", data);
         }
     });
-  }
+  }*/
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      // this.splashScreen.hide();
-      var fontClassValue = localStorage.getItem("fontClass");
-      if(fontClassValue == '')
-        fontClassValue = 'normal';
+initializeApp() {
+  this.platform.ready().then(() => {
+    // this.splashScreen.hide();
+    this.statusBar.styleDefault();
+    var fontClassValue = localStorage.getItem("fontClass");
+    console.log("fontClassValue ", fontClassValue);
+    if(fontClassValue == '')
+      fontClassValue = 'normal';
 
-      this.fontClass = 'fs-'+fontClassValue;
-    });
-  }
-  async presentLoading() {
+    this.fontClass = 'fs-'+fontClassValue;
+  });
+}
+async presentLoading() {
     this.loading = await this.LoadingController.create({
       //content: '',
-      duration: 3000
+      duration: 1000
     });
     return await this.loading.present();
-  }
+}
 
-  async presentToast(msg = '') {
-    let toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 4000,
-      position: 'bottom',
-      cssClass: 'normal-toast'
-    });
+async presentToast(msg = '') {
+  let toast = await this.toastCtrl.create({
+    message: msg,
+    duration: 4000,
+    position: 'bottom',
+    cssClass: 'normal-toast'
+  });
 
-    toast.present();
-  }
-
-  public openWithSystemBrowser(url : string){
+  toast.present();
+}
+    
+public openWithSystemBrowser(url : string){
     let target = "_system";
     this.theInAppBrowser.create(url,target,this.options);
-  }
-  public openWithInAppBrowser(url : string){
+}
+public openWithInAppBrowser(url : string){
     let target = "_blank";
     this.theInAppBrowser.create(url,target,this.options);
-  }
-  public openWithCordovaBrowser(url : string){
+}
+public openWithCordovaBrowser(url : string){
     let target = "_self";
     this.theInAppBrowser.create(url,target,this.options);
-  }
-
-  aboutToggle(){
-    this.isAbout = this.isAbout == 0 ? 1: 0;
-    console.log("toggle", this.isAbout);
-  }
-
+}  
+  
   logout(){
     this.presentLoading();
     localStorage.removeItem('userData');
@@ -182,23 +178,18 @@ export class AppComponent {
     console.log("user logged out successfully..");
   }
   
-  pageload(){
+  /*pageload(){
      this.Router.navigate(['home']).then(() => {
         window.location.reload();
       }); 
+  }*/
+
+  gotoHomePage (pageLink) {
+    this.navCtrl.navigateForward(pageLink);
   }
   
-  gotoResources(data = ''){
-    let memoryData = {
-      memory_verses:data
-    };
-    console.log(memoryData);
-    let navigationData: any = {
-      queryParams: {
-        key: JSON.stringify(memoryData)
-      }
-    };
-    this.Router.navigate(['resources'], navigationData);
+  gotoLogin() {
+    this.Router.navigate(["login"]);
   }
 
   ngOnInit() {
@@ -210,7 +201,8 @@ export class AppComponent {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   }
 
@@ -240,20 +232,20 @@ export class AppComponent {
             this.updateFontSizeClass('medium');
           },
         },
-        /*{
-          text: 'Normal',
-          icon: 'caret-forward-circle',
-          handler: () => {
-            this.updateFontSizeClass('normal');
-          },
-        },
+        // {
+        //   text: 'Normal',
+        //   icon: 'caret-forward-circle',
+        //   handler: () => {
+        //     this.updateFontSizeClass('normal');
+        //   },
+        // },
         {
           text: 'Small',
           // icon: 'heart',
           handler: () => {
             this.updateFontSizeClass('small');
           },
-        },*/
+        },
         {
           text: 'Cancel',
           // icon: 'close',
@@ -269,4 +261,4 @@ export class AppComponent {
     const { role } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
-} 
+}

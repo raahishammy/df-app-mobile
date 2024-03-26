@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class BlogPage implements OnInit {
   public blog: string;
-  url: string = 'https://disciplefirst.com/'
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/'
   items: any = []
   page: any = 1;
   

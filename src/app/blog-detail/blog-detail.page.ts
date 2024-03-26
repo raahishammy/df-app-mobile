@@ -11,7 +11,7 @@ import { ToastController, LoadingController } from '@ionic/angular';
 })
 export class BlogDetailPage implements OnInit {
   data;
-  url: string = 'https://disciplefirst.com/';
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/';
   loading:any;
 
   constructor(private route: ActivatedRoute, private router: Router, public http: HttpClient, public toastCtrl: ToastController,

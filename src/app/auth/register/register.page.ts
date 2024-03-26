@@ -3,13 +3,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  url: string = 'https://disciplefirst.com/'
+
+  options : InAppBrowserOptions = {
+    location : 'yes',//Or 'no' 
+    hidden : 'no', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls 
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only 
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only 
+    toolbar : 'yes', //iOS only 
+    enableViewportScale : 'no', //iOS only 
+    allowInlineMediaPlayback : 'no',//iOS only 
+    presentationstyle : 'pagesheet',//iOS only 
+    fullscreen : 'yes',//Windows only    
+  };
+
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/'
   responseData:any;
   loading:any;
 
@@ -18,7 +39,8 @@ export class RegisterPage implements OnInit {
       public http: HttpClient,
       public Router: Router,
       public toastCtrl: ToastController,
-      public LoadingController: LoadingController
+      public LoadingController: LoadingController,
+      public theInAppBrowser: InAppBrowser
   ) { }
 
   async presentLoading() {
@@ -29,10 +51,25 @@ export class RegisterPage implements OnInit {
         return await this.loading.present();
     }
 
+    public openWithSystemBrowser(url : string){
+      let target = "_system";
+      this.theInAppBrowser.create(url,target,this.options);
+    }
+    public openWithInAppBrowser(url : string){
+        let target = "_blank";
+        this.theInAppBrowser.create(url,target,this.options);
+    }
+    public openWithCordovaBrowser(url : string){
+        let target = "_self";
+        this.theInAppBrowser.create(url,target,this.options);
+    }  
+  
+
       // Http Options
     httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         })
     }
 
@@ -54,8 +91,8 @@ export class RegisterPage implements OnInit {
         this.loading.dismiss();
       },
       error => {
-        this.presentToast("Invalid Username/Email");
-        //console.log("Something went wrong");
+        this.presentToast("Error: " + error.error.message);
+        // console.log("Something went wrong", error.error.message);
         this.loading.dismiss();
       });
   }

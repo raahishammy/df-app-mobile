@@ -3,44 +3,44 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 import { Platform } from '@ionic/angular';
-import { FCM } from '@awesome-cordova-plugins/fcm/ngx';
+// import { FCM } from '@awesome-cordova-plugins/fcm/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FcmService {
   
-  url: string = 'https://disciplefirst.com/';
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/';
 
   constructor( 
     private platform: Platform, 
     private http: HttpClient,
-    private fcm: FCM 
+    // private fcm: FCM, 
   ) { }
 
   async getToken() {
     let token;
     if (this.platform.is('android')) {
-      token = await this.fcm.getToken();
+      // token = await FCM.getToken();
       console.log("FCM Token ", token);
     }
     // this.saveFCMToken(token);
   }
 
-  topicSubscription(topic = '') {
-    this.fcm.subscribeToTopic(topic).then((res: any) => {
+  topicSubscription(topic) {
+    /*FCM.subscribeToTopic(topic).then((res: any) => {
       console.log('Subscribed to topic: ' + topic, res);
-    });
+    });*/
   }
 
-  topicUnsubscription(topic = '') {
-    this.fcm.unsubscribeFromTopic(topic).then((res: any) => {
+  topicUnsubscription(topic) {
+    /*FCM.unsubscribeFromTopic(topic).then((res: any) => {
       console.log('Unsubscribed from topic: ' + topic, res)
-    });
+    });*/
   }
 
   onNotifications() {
-    return this.fcm.onNotification();
+    // return FCM.onNotification();
   }
 
   // private saveToken(token) {
@@ -66,7 +66,8 @@ export class FcmService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   }
 }

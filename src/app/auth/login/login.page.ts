@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  url: string = 'https://disciplefirst.com/'
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/'
   responseData:any;
   loading:any;
   
@@ -34,7 +34,8 @@ export class LoginPage implements OnInit {
       // Http Options
     httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         })
     }
   
@@ -45,23 +46,25 @@ export class LoginPage implements OnInit {
         let formData = {"username":form.value.username, "password":form.value.password};
         console.log(formData);
         const route = this.url + 'wp-json/disciplefirst2019-child/v1/authenticate'
-        return this.http.post(route, JSON.stringify(formData), this.httpOptions).subscribe(res => {      
-          this.responseData = res;
-          //console.log(this.responseData);
-          localStorage.setItem('userData', JSON.stringify(this.responseData));
-          //console.log(this.responseData.ID);
-          
-          this.Router.navigate(['home']).then(() => {
-            window.location.reload();
-          });
-          
-          this.loading.dismiss();
-        },
-        error => {
-          this.presentToast("Username/Password incorrect");
-          //alert("Username/Password incorrect");
-          this.loading.dismiss();
-        });
+        return this.http.post(route, JSON.stringify(formData), this.httpOptions).subscribe({
+          next: (res) => {
+            this.responseData = res;
+            //console.log(this.responseData);
+            localStorage.setItem('userData', JSON.stringify(this.responseData));
+            //console.log(this.responseData.ID);
+            
+            this.Router.navigate(['home']).then(() => {
+              window.location.reload();
+            });
+            
+            this.loading.dismiss();
+          },
+          error: (error) => {
+            console.log(error);
+            this.presentToast("Username/Password incorrect");
+            this.loading.dismiss();
+          }
+        }); 
     }
 
     async presentToast(msg) {

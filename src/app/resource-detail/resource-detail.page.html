@@ -108,7 +108,7 @@
     <span *ngIf="keyvalue; else available">	 
       <span *ngIf="keyvalue == 'leader_notes' && keyvalue != 'memory_verses'">
         <div class="main-leader-notes" *ngIf="data">
-            <section  (click)="gotoLeaderNotes(data.ID,'leader_notes')" class="text-center internal-hero" style='background:url(../assets/images/memory-verses.jpg);'>
+            <section  (click)="gotoLeaderNotes(data.ID,'leader_notes')" class="text-center internal-hero" style='background:url(../assets/images/leader-notes-bg.jpg);'>
                 <h3 class="span-underline internal-hero-title"><span>LEADER NOTES</span> <ion-icon name="arrow-forward-sharp"></ion-icon></h3>
             </section> 
         </div>
@@ -116,7 +116,7 @@
     </span>
     <ng-template #available>
         <div class="main-leader-notes" *ngIf="data">
-            <section  (click)="gotoLeaderNotes(data.ID,'leader_notes')" class="text-center internal-hero" style='background:url(../assets/images/memory-verses.jpg);'>
+            <section  (click)="gotoLeaderNotes(data.ID,'leader_notes')" class="text-center internal-hero" style='background:url(../assets/images/leader-notes-bg.jpg);'>
                 <h3 class="span-underline internal-hero-title"><span>LEADER NOTES</span> <ion-icon name="arrow-forward-sharp"></ion-icon></h3>
             </section> 
         </div>
@@ -126,7 +126,7 @@
     <span *ngIf="keyvalue; else appendices">	 
       <span *ngIf="keyvalue == 'appendices'">
         <div class="main-appendices" *ngIf="data">
-            <section  (click)="gotoappendices(data.ID,'appendices')" class="text-center internal-hero" style='background:url(../assets/images/memory-verses.jpg);'>
+            <section  (click)="gotoappendices(data.ID,'appendices')" class="text-center internal-hero" style='background:url(../assets/images/appendicies-bg.jpg);'>
                 <h3 class="span-underline internal-hero-title"><span>APPENDICES</span> <ion-icon name="arrow-forward-sharp"></ion-icon></h3>
             </section> 
         </div>
@@ -134,32 +134,9 @@
     </span>
     <ng-template #appendices>
         <div class="main-appendices" *ngIf="data">
-            <section  (click)="gotoappendices(data.ID,'appendices')" class="text-center internal-hero" style='background:url(../assets/images/memory-verses.jpg);'>
+            <section  (click)="gotoappendices(data.ID,'appendices')" class="text-center internal-hero" style='background:url(../assets/images/appendicies-bg.jpg);'>
                 <h3 class="span-underline internal-hero-title"><span>APPENDICES</span> <ion-icon name="arrow-forward-sharp"></ion-icon></h3>
             </section> 
         </div>
-    </ng-template>
-  
-       <!---ion-col padding>
-          <div class="main-leader-notes" *ngIf="data">
-           
-              <h6 (click)="gotoLeaderNotes(data.ID,'leader_notes')">Leader Notes</h6>
-              </div>
-  
-            <img [src]="data.thumbnail_url"> 
-            </ion-col-->
-  
-
-
-  <!---section class="main-memory-verses" *ngIf="data">
-    <ion-col class="detail-hero-info" padding>
-      <ion-label (click)="gotoMemoryVerses(data.ID,'memory_versus')">Memory Verses</ion-label>
-    </ion-col>
-  </section-->
-  
-  
-  <!-- <button ion-button color="light" round>GO</button> -->
-
-
-  
+    </ng-template>  
 </ion-content>

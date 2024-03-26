@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SpeakingPage implements OnInit {
 
-  url: string = 'https://disciplefirst.com/'
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/'
 
   userinfo = {
     firstName: "",
@@ -287,17 +287,20 @@ export class SpeakingPage implements OnInit {
         this.userinfo.additionalRequests = this.requirementSelected;
 
         const route = this.url + 'wp-json/disciplefirst2019-child/v1/speaking-form/'
-        this.http.post(route, this.userinfo, this.httpOptions).subscribe((val) => {
-          console.log("POST call successful value returned in body", val);
-          this.presentToast("Your message has been sent Successfully.")
-        },
-          response => {
-            console.log("POST call in error", response);
+        this.http.post(route, this.userinfo, this.httpOptions).subscribe({
+          next: (val) => {
+            console.log("POST call successful value returned in body", val);
+            this.presentToast("Your message has been sent Successfully.")
           },
-          () => {
+          error: (error) => {
+            console.log("POST call in error", error);
+          },
+          complete: () => {
             console.log("The POST observable is now completed.");
-          });
-          return true;
+          }
+        });
+        return true;
+
       } else {
         this.presentToast("Please enter a Valid Email Address.");
         return true;
@@ -347,7 +350,8 @@ export class SpeakingPage implements OnInit {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   }
 

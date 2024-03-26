@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng serve --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
   },
@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
     "@awesome-cordova-plugins/barcode-scanner": "^6.6.0",
-    "@awesome-cordova-plugins/fcm": "^6.6.0",
     "@awesome-cordova-plugins/in-app-browser": "^6.6.0",
     "@awesome-cordova-plugins/network": "^6.6.0",
     "@awesome-cordova-plugins/status-bar": "^6.6.0",
@@ -58,7 +57,6 @@
     "cordova-android": "^12.0.1",
     "cordova-browser": "^7.0.0",
     "cordova-plugin-device": "2.0.2",
-    "cordova-plugin-fcm-with-dependecy-updated": "^7.8.0",
     "cordova-plugin-inappbrowser": "^6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
@@ -87,14 +85,6 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-fcm-with-dependecy-updated": {
-        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher",
-        "ANDROID_FIREBASE_BOM_VERSION": "32.7.4",
-        "ANDROID_GOOGLE_SERVICES_VERSION": "4.4.1",
-        "ANDROID_GRADLE_TOOLS_VERSION": "8.3.0",
-        "IOS_FIREBASE_MESSAGING_VERSION": "~> 23.3.0",
-        "ANDROID_FCM_VERSION": "23.2.1"
-      },
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       }

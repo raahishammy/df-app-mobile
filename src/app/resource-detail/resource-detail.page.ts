@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ToastController, LoadingController } from '@ionic/angular';
 
-import { Network } from "@awesome-cordova-plugins/network/ngx";
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: "app-resource-detail",
@@ -18,7 +18,7 @@ export class ResourceDetailPage implements OnInit {
   weeks_array: any;
   weeks: Object;
   keys: any;
-  url: string = "https://disciplefirst.com/";
+  url: string = "https://disciplefirst.herokuapp.com/https://disciplefirst.com/";
   bookData: any = JSON.parse(this.route.snapshot.queryParams["post_id"]);
   filterParams: any = {
     id: this.bookData.id,
@@ -44,9 +44,9 @@ export class ResourceDetailPage implements OnInit {
     this.keyvalue = post.key;
     this.bookid = post.id;
 
-    console.log(this.keyvalue);
-    console.log(this.bookid);
-    console.log("Network Type ", this.network.type);
+    // console.log(this.keyvalue);
+    // console.log(this.bookid);
+    // console.log("Network Type ", this.network.type);
     this.hasNetwork = this.network.type;
 
     let localStoredBooks = localStorage.getItem("downloadedBooks");
@@ -55,6 +55,9 @@ export class ResourceDetailPage implements OnInit {
       for (var i = 0; i < downloadedBooks.length; i++) {
         if (downloadedBooks[i].ID == this.bookid) {
           this.downloaded_flag = true;
+
+          this.data = downloadedBooks[i];
+          this.weeks = this.data.weeks_array;
           break;
         }
       }
@@ -69,17 +72,21 @@ export class ResourceDetailPage implements OnInit {
         }
         this.weeks = this.data.weeks_array;
       }
-      console.log(this.data);
+      // console.log(this.data);
       // this.loading.dismiss();
     } else {
-      this.presentLoading();
-      this.getProductDetails(post.id).subscribe((res) => {
-        this.data = res;
-        this.weeks = this.data.weeks_array;
-        console.log(this.data);
+      if (this.downloaded_flag) {
+        // Variables already defined
+      }else{
+        this.presentLoading();
+        this.getProductDetails(post.id).subscribe((res) => {
+          this.data = res;
+          this.weeks = this.data.weeks_array;
+          console.log(this.data);
 
-        this.loading.dismiss();
-      });
+          this.loading.dismiss();
+        });
+      }
     }
   }
 
@@ -91,8 +98,8 @@ export class ResourceDetailPage implements OnInit {
       this.url +
       "wp-json/disciplefirst2019-child/v1/" +
       `download-book/${this.bookid}`;
-    this.http.get(route, this.httpOptions).subscribe(
-      (post) => {
+    this.http.get(route, this.httpOptions).subscribe({
+      next: (post) => {
         if (downloadedBooks) {
           let exist = false;
           for (var i = 0; i < downloadedBooks.length; i++) {
@@ -110,30 +117,30 @@ export class ResourceDetailPage implements OnInit {
             );
           }
         } else {
-          let temp: any [] = [];
+          let temp : any = [];
           temp.push(post);
           localStorage.setItem("downloadedBooks", JSON.stringify(temp));
         }
-        let localBookslist = localStorage.getItem("downloadedBooks");
-        let bookslist = (localBookslist!== null ) ? JSON.parse(localBookslist) : null;
+        let localBooksList = localStorage.getItem("downloadedBooks");
+        let bookslist = (localBooksList!== null ) ? JSON.parse(localBooksList) : null;
         console.log("List of Books ", bookslist);
         this.presentToast("Book has been downloaded Successfully!");
       },
-      (response) => {
+      error: (response) => {
         console.log("GET call in error", response);
         this.presentToast(response);
       },
-      () => {
+      complete: () => {
         console.log("The GET observable is now completed.");
         this.loading.dismiss();
       }
-    );
+    });
   }
 
   async presentLoading() {
     this.loading = await this.LoadingController.create({
       //content: '',
-      duration: 5000,
+      // duration: 5000,
     });
     return await this.loading.present();
   }
@@ -152,7 +159,8 @@ export class ResourceDetailPage implements OnInit {
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
+      'Content-Type': 'application/x-www-form-urlencoded'
     }),
   };
 

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ContactPage implements OnInit {
 
-  url: string = 'https://disciplefirst.com/'
+  url: string = 'https://disciplefirst.herokuapp.com/https://disciplefirst.com/'
   
   userinfo = {
     firstName: "",
@@ -115,7 +115,8 @@ export class ContactPage implements OnInit {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   }
 

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>memories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let item of book_weekly_memory_verse">
+      <app-flip-card>
+        <div class="flash-card-front" [innerHTML]="item['verse_title']"></div>    
+        <div class="flash-card-back" [innerHTML]="item['verse_description']"></div>    
+      </app-flip-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
