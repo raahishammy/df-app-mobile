@@ -7,6 +7,10 @@ import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
 // import { FcmService } from "../app/fcm.service";
 
+import { register } from 'swiper/element/bundle';
+
+register();
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

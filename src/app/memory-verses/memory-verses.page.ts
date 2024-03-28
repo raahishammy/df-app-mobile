@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { ToastController, LoadingController } from '@ionic/angular';
 
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { IonicSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-memory-verses',
@@ -12,10 +13,8 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
   styleUrls: ['./memory-verses.page.scss'],
 })
 export class MemoryVersesPage implements OnInit {
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400
-  };
+  
+  swiperModules = [IonicSlides];
 
   data:any;
   book_weekly_memory_verse:any;

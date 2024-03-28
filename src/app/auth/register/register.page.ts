@@ -68,14 +68,14 @@ export class RegisterPage implements OnInit {
       // Http Options
     httpOptions = {
         headers: new HttpHeaders({
-          // 'Content-Type': 'application/json'
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded'
         })
     }
 
     register(form){
       this.presentLoading();
-      //console.log(form.value);
+      console.log(form.value);
       let formData = {"username":form.value.username, "email":form.value.email, "password":form.value.password};
 
       const route = this.url + 'wp-json/disciplefirst2019-child/v1/register'

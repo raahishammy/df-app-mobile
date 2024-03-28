@@ -22,8 +22,8 @@
     <!-- <ion-label><span [innerHTML]="data['post_title']"></span></ion-label>
     <div [innerHTML]="data['weekly_memory_verses']"></div> -->
     <p>Tap on the scripture below to see the full Verse.<br/>Swipe to see each week's verse.</p>
-    <ion-slides *ngIf="book_weekly_memory_verse" pager="true" [options]="slideOpts">
-      <ion-slide *ngFor="let item of book_weekly_memory_verse" >
+    <swiper-container *ngIf="book_weekly_memory_verse" pagination="false" [initialSlide]="0" [speed]="400" [modules]="swiperModules">
+      <swiper-slide *ngFor="let item of book_weekly_memory_verse" >
         <!--<app-flip-card [style.background]="'url(' + item['background_image'] + ')'" [style.background-size]="'cover'"
         [style.background-repeat] ="'no-repeat'" [class]="'verse-book-'+data['ID']+' '"> -->
         <app-flip-card [class]="'verse-book-'+data['ID'] +' ' ">
@@ -33,8 +33,8 @@
           </div>
           <div [style.background]="'url(' + item['background_image'] + ')'" [style.background-size]="'cover'" [style.background-repeat] ="'no-repeat'" class="flash-card-back" [innerHTML]="item['verse_description']"></div>
         </app-flip-card>
-      </ion-slide>
-    </ion-slides>
+      </swiper-slide>
+    </swiper-container>
     <div class="swipe-text">Swipe <ion-icon name="chevron-forward-outline"></ion-icon><ion-icon name="chevron-forward-outline"></ion-icon></div>
   </div> 
 </ion-content>

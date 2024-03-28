@@ -36,11 +36,11 @@
                <ion-icon slot="end" [name]="isAbout? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
             </ion-item>
               
-            <ion-menu-toggle auto-hide="false">
-              <ion-item menuclose [hidden]="!isAbout" [routerLink]="['about/About']" class="sub-menu" detail="false">Who We Are</ion-item>
-              <ion-item menuclose [hidden]="!isAbout" [routerLink]="['staff']" class="sub-menu" detail="false">Our Staff</ion-item>
-              <ion-item menuclose [hidden]="!isAbout" [routerLink]="['directors']" class="sub-menu" detail="false">Board of Directors</ion-item>
-              <ion-item menuclose [hidden]="!isAbout" [routerLink]="['speaking']" class="sub-menu" detail="false">Speaking Request</ion-item> 
+            <ion-menu-toggle auto-hide="true" *ngIf="isAbout">
+              <ion-item menuclose [routerLink]="['about/About']" class="sub-menu" detail="false">Who We Are</ion-item>
+              <ion-item menuclose [routerLink]="['staff']" class="sub-menu" detail="false">Our Staff</ion-item>
+              <ion-item menuclose [routerLink]="['directors']" class="sub-menu" detail="false">Board of Directors</ion-item>
+              <ion-item menuclose [routerLink]="['speaking']" class="sub-menu" detail="false">Speaking Request</ion-item> 
             </ion-menu-toggle>
           
             
