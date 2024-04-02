@@ -131,7 +131,7 @@ export class ResourcesPage implements OnInit {
 
   getBookByBarcode(barcodeInfo: string) {
     this.barcodeInfoData = JSON.parse(barcodeInfo);
-    console.log(this.barcodeInfoData);
+    // console.log(this.barcodeInfoData);
     let book_barcode = { book_bar_code: this.barcodeInfoData["text"] };
 
     let localbarcodes = localStorage.getItem("bookBarcodes");
@@ -154,7 +154,6 @@ export class ResourcesPage implements OnInit {
               this.scannedBook = res;
               this.bookID = this.scannedBook[0].ID;
               // console.log("BookID from API=" + this.bookID);
-
               if (res) {
                 barcodes = Object.values(map);
                 this.barcodeInfoData['bookId'] = this.bookID;
@@ -162,11 +161,13 @@ export class ResourcesPage implements OnInit {
                 localStorage.setItem("bookBarcodes", JSON.stringify(barcodes));
                 this.goToProductDetails(this.bookID);
               }
-              this.loading.dismiss();
             },
             error: (error) => {
-              this.loading.dismiss();
               alert("Invalid Barcode");
+              this.loading.dismiss();
+            },
+            complete: () => {
+              this.loading.dismiss();
             }
         });
       } else {
@@ -175,36 +176,34 @@ export class ResourcesPage implements OnInit {
       }
     } else {
       this.presentLoading();
-      const route =
-        this.url + "wp-json/disciplefirst2019-child/v1/verify-barcode/";
-      return this.http
-        .post(route, JSON.stringify(book_barcode), this.httpOptions)
-        .subscribe({
-          next: (res) => {
-            this.scannedBook = res;
-            this.bookID = this.scannedBook[0].ID;
-            // console.log("BookID from API=" + this.bookID);
+      const route = this.url + "wp-json/disciplefirst2019-child/v1/verify-barcode/";
+      return this.http.post(route, JSON.stringify(book_barcode), this.httpOptions).subscribe({
+        next: (res) => {
+          this.scannedBook = res;
+          this.bookID = this.scannedBook[0].ID;
+          // console.log("BookID from API=" + this.bookID);
 
-            if (res) {
-              let temp: any [] = [];
-              this.barcodeInfoData['bookId'] = this.bookID;
-              temp.push(this.barcodeInfoData);
-              localStorage.setItem(`bookBarcodes`, JSON.stringify(temp));
-            }
-            this.goToProductDetails(this.bookID);
-          },
-          error: (error) => {
-            this.loading.dismiss();
-            alert("Invalid Barcode");
+          if (res) {
+            let temp: any [] = [];
+            this.barcodeInfoData['bookId'] = this.bookID;
+            temp.push(this.barcodeInfoData);
+            localStorage.setItem(`bookBarcodes`, JSON.stringify(temp));
           }
+          this.goToProductDetails(this.bookID);
+        },
+        error: (error) => {
+          alert("Invalid Barcode");
+          this.loading.dismiss();
+        },
+        complete: () => {
+          this.loading.dismiss();
+        }
       });
     }
   }
 
   scanBarcode() {
-    this.barcodeScanner
-      .scan()
-      .then((barcodeData) => {
+    this.barcodeScanner.scan().then((barcodeData) => {
         //alert("Barcode data " + JSON.stringify(barcodeData));
         this.scannedData = barcodeData;
         // this.getBookByBarcode('{"text":"9780999343913", "format":"QR_CODE","cancelled":false}');
@@ -221,8 +220,7 @@ export class ResourcesPage implements OnInit {
 
   loadProductbyUserId(id) {
     this.presentLoading();
-    const route =
-      this.url + "wp-json/disciplefirst2019-child/v1/books-listing/";
+    const route = this.url + "wp-json/disciplefirst2019-child/v1/books-listing/";
     return this.http.post(route, JSON.stringify(id), this.httpOptions).pipe(
       map((post) => {
         //console.log(post);

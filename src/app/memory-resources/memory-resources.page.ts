@@ -166,11 +166,13 @@ export class MemoryResourcesPage implements OnInit {
                 localStorage.setItem("bookBarcodes", JSON.stringify(barcodes));
                 this.gotoMemoryVerses(this.bookID);
               }
+            },
+            error: (error) => {              
+              alert("Invalid Barcode");
               this.loading.dismiss();
             },
-            error: (error) => {
+            complete: () => {
               this.loading.dismiss();
-              alert("Invalid Barcode");
             }
           });
       } else {
@@ -196,9 +198,12 @@ export class MemoryResourcesPage implements OnInit {
             }
             this.gotoMemoryVerses(this.bookID);
           },
-          error: (error) => {
-            this.loading.dismiss();
+          error: (error) => {            
             alert("Invalid Barcode");
+            this.loading.dismiss();
+          },
+          complete: () => {
+            this.loading.dismiss();
           }
         });
     }

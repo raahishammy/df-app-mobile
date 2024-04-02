@@ -175,11 +175,13 @@ export class AppendiciesResourcesPage implements OnInit {
                 localStorage.setItem("bookBarcodes", JSON.stringify(barcodes));
                 this.gotoappendices(this.bookID, 'appendices');
               }
-              this.loading.dismiss();
             },
             error: (error) => {
-              this.loading.dismiss();
               alert("Invalid Barcode");
+              this.loading.dismiss();
+            },
+            complete: () => {
+              this.loading.dismiss();
             }
           });
       } else {
@@ -205,9 +207,12 @@ export class AppendiciesResourcesPage implements OnInit {
             }
             this.gotoappendices(this.bookID,'appendices');
           },
-          error: (error) => {
-            this.loading.dismiss();
+          error: (error) => {            
             alert("Invalid Barcode");
+            this.loading.dismiss();
+          },
+          complete: () => {
+            this.loading.dismiss();
           }
         });
     }

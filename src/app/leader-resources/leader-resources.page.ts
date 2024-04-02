@@ -165,11 +165,13 @@ export class LeaderResourcesPage implements OnInit {
                 localStorage.setItem("bookBarcodes", JSON.stringify(barcodes));
                 return this.gotoLeaderNotes(this.bookID, 'leader_notes');
               }
-              this.loading.dismiss();
             },
             error: (error) => {
-              this.loading.dismiss();
               alert("Invalid Barcode");
+              this.loading.dismiss();
+            },
+            complete: () => {
+              this.loading.dismiss();
             }
           });
       } else {
@@ -196,8 +198,11 @@ export class LeaderResourcesPage implements OnInit {
             this.gotoLeaderNotes(this.bookID,'leader_notes');
           },
           error: (error) => {
-            this.loading.dismiss();
             alert("Invalid Barcode");
+            this.loading.dismiss();
+          },
+          complete: () => {
+            this.loading.dismiss();
           }
         });
     }

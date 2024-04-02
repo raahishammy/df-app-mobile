@@ -153,8 +153,8 @@ export class IntroductionResourcesPage implements OnInit {
           this.url + "wp-json/disciplefirst2019-child/v1/verify-barcode/";
         return this.http
           .post(route, JSON.stringify(book_barcode), this.httpOptions)
-          .subscribe(
-            (res) => {
+          .subscribe({
+            next: (res) => {
               this.scannedBook = res;
               this.bookID = this.scannedBook[0].ID;
 
@@ -165,13 +165,15 @@ export class IntroductionResourcesPage implements OnInit {
                 localStorage.setItem("bookBarcodes", JSON.stringify(barcodes));
                 this.gotoIntroduction(this.bookID, 'introduction');
               }
+            },
+            error: (error) => {
+              alert("Invalid Barcode");
               this.loading.dismiss();
             },
-            (error) => {
+            complete: () => {
               this.loading.dismiss();
-              alert("Invalid Barcode");
             }
-          );
+        });
       } else {
         let bookID = barcodes[barcodeInfo["text"]]["bookId"];
         return this.gotoIntroduction(bookID, 'introduction');
@@ -196,8 +198,11 @@ export class IntroductionResourcesPage implements OnInit {
             this.gotoIntroduction(this.bookID,'introduction');
           },
           error: (error) => {
-            this.loading.dismiss();
             alert("Invalid Barcode");
+            this.loading.dismiss();
+          },
+          complete: () => {
+            this.loading.dismiss();
           }
         });
     }
